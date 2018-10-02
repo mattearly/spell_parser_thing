@@ -30,12 +30,6 @@ bool spell::find_and_set_classes(const string &search_through)
         { // we dont want Rogue and Fighter classes listed as casters
             return false;
         }
-
-        // if (matches[0].compare("components") == 0)  //todo we need a better stop case this wont work
-        // {  // if we run into the word components, we're certainly past all the classes
-        //     return true;
-        // }
-
         if (count > 0)
         {
             spell_iteration_var.classes += ", ";
@@ -47,11 +41,50 @@ bool spell::find_and_set_classes(const string &search_through)
         {
             spell_iteration_var.classes = matches[0];
             count++;
-
             return false;
         }
     }
     if (spell_iteration_var.classes.size() > 2)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool spell::find_and_set_components(const string &search_through)
+{
+    static int count = 0;
+    std::regex pattern{R"([A-Z])"};
+    smatch matches;
+    if (regex_search(search_through, matches, pattern))
+    {
+        if (count > 0)
+        {
+            spell_iteration_var.components += ", ";
+            if (matches[0].compare("S") == 0)
+                spell_iteration_var.components += "Somatic";
+            if (matches[0].compare("M") == 0)
+                spell_iteration_var.components += "Material";
+            if (matches[0].compare("V") == 0)
+                spell_iteration_var.components += "Verbal";
+            count++;
+            return false;
+        }
+        else
+        {
+            if (matches[0].compare("S") == 0)
+                spell_iteration_var.components += "Somatic";
+            if (matches[0].compare("M") == 0)
+                spell_iteration_var.components += "Material";
+            if (matches[0].compare("V") == 0)
+                spell_iteration_var.components += "Verbal";
+            count++;
+            return false;
+        }
+    }
+    
+    if (spell_iteration_var.components.size() > 2)
     {
         return true;
     }
@@ -64,7 +97,6 @@ bool spell::find_and_set_school(const string &search_through) {}
 bool spell::find_and_set_ritual(const string &search_through) {}
 bool spell::find_and_set_castingTime(const string &search_through) {}
 bool spell::find_and_set_range(const string &search_through) {}
-bool spell::find_and_set_components(const string &search_through) {}
 bool spell::find_and_set_material(const string &search_through) {}
 bool spell::find_and_set_duration(const string &search_through) {}
 bool spell::find_and_set_description(const string &search_through) {}
