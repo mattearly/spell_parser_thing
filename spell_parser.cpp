@@ -20,11 +20,16 @@ int main()
             if (success)
             {
                 cout << "SPELLNAME: " << spell_iteration_var.name << endl;
-                exit(1);
+                // exit(1);
             }
             break;
         case 1:
-            spell_iteration_var.find_and_set_classes(data_to_search);
+            success = spell_iteration_var.find_and_set_classes(data_to_search);
+            if (success)
+            {
+                cout << "CLASSES: " << spell_iteration_var.classes << endl;
+                exit(1);
+            }
             break;
         case 2:
             spell_iteration_var.find_and_set_components(data_to_search);

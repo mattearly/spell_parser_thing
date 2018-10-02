@@ -33,4 +33,6 @@ class spell
     bool find_and_set_description(const string &);
     bool find_and_set_source(const string &);
     bool find_and_set_page(const string &);
+
+    void resetModel();
 };

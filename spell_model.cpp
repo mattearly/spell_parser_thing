@@ -13,60 +13,77 @@ bool spell::find_and_set_name(const string &search_through)
     smatch matches;
     if (regex_search(search_through, matches, pattern))
     {
-        // cout << "matches(" << matches.size() << "): ";
-        // for (auto match : matches)
-            // cout << match << endl;
         spell_iteration_var.name = matches[0];
         return true;
     }
     return false;
 }
 
+bool spell::find_and_set_classes(const string &search_through)
+{
+    static int count = 0;
+    std::regex pattern{R"([A-Z][a-zA-Z]+)"};
+    smatch matches;
+    if (regex_search(search_through, matches, pattern))
+    {
+        if (matches[0].compare("Rogue") == 0 || matches[0].compare("Fighter") == 0)
+        { // we dont want Rogue and Fighter classes listed as casters
+            return false;
+        }
 
-  /* SET NAME IF FOUND */
-    // name consists of everythign between "" that start with a capital letter
-    // std::regex pattern{R"(\u\l+\l*(\u\l)*)"};
-    // std::regex pattern{R"((\u\l)+)"};
-    // std::regex pattern{R"(\w+)"};
-    // std::regex pattern{R"(.*)"};
-    // std::regex pattern{R"((A-Z|a-z|\s)+)"};
-    // std::regex pattern{R"([A-Z][a-z]+(\s[a-z]+)?(\s[A-Z][a-z]+)?)"};
+        // if (matches[0].compare("components") == 0)  //todo we need a better stop case this wont work
+        // {  // if we run into the word components, we're certainly past all the classes
+        //     return true;
+        // }
 
-    //works with quotations hanging on
-    // std::regex pattern{R"(["][a-zA-Z \s]+["])"};
+        if (count > 0)
+        {
+            spell_iteration_var.classes += ", ";
+            spell_iteration_var.classes += matches[0];
+            count++;
+            return false;
+        }
+        else
+        {
+            spell_iteration_var.classes = matches[0];
+            count++;
 
-    //works with quotations hanging on
-    // std::regex pattern{R"([?<="][A-Z][a-zA-Z \s]+[?="])"};
+            return false;
+        }
+    }
+    if (spell_iteration_var.classes.size() > 2)
+    {
+        return true;
+    }
 
+    return false;
+}
 
+bool spell::find_and_set_level(const string &search_through) {}
+bool spell::find_and_set_school(const string &search_through) {}
+bool spell::find_and_set_ritual(const string &search_through) {}
+bool spell::find_and_set_castingTime(const string &search_through) {}
+bool spell::find_and_set_range(const string &search_through) {}
+bool spell::find_and_set_components(const string &search_through) {}
+bool spell::find_and_set_material(const string &search_through) {}
+bool spell::find_and_set_duration(const string &search_through) {}
+bool spell::find_and_set_description(const string &search_through) {}
+bool spell::find_and_set_source(const string &search_through) {}
+bool spell::find_and_set_page(const string &search_through) {}
 
-    // std::regex pattern{R"([^"].*[^"])"};
-    // std::regex pattern{R"([A-Z][a-z]+(\s[a-z]+)?(\s[A-Z][a-z]+)?)"};
-    // std::regex pattern{R"([A-Z][a-z]+(\s[a-z]+)?(\s[A-Z][a-z]+)?)"};
-    // std::regex pattern{R"(Polymorph)"};
-    // std::regex pattern{R"(\u{1}\w+)"}; 
-    
-       // std::regex e("(\".*\")"); // reg expression to match things surrounded by ""
-    // std::cout << "Target sequence: " << input << std::endl;
-    // //   std::cout << "Regular expression: /\\b(sub)([^ ]*)/" << std::endl;
-    // std::cout << "The following matches and submatches were found:" << std::endl;
-    // while (std::regex_search(input, m, e))
-    // {
-    //     for (auto x : m)
-    //         std::cout << x << " ";
-    //     std::cout << std::endl;
-    //     // s = m.suffix().str();
-    // }
-
-    bool spell::find_and_set_classes(const string &search_through) {}
-    bool spell::find_and_set_level(const string &search_through) {}
-    bool spell::find_and_set_school(const string &search_through) {}
-    bool spell::find_and_set_ritual(const string &search_through) {}
-    bool spell::find_and_set_castingTime(const string &search_through) {}
-    bool spell::find_and_set_range(const string &search_through) {}
-    bool spell::find_and_set_components(const string &search_through) {}
-    bool spell::find_and_set_material(const string &search_through) {}
-    bool spell::find_and_set_duration(const string &search_through) {}
-    bool spell::find_and_set_description(const string &search_through) {}
-    bool spell::find_and_set_source(const string &search_through) {}
-    bool spell::find_and_set_page(const string &search_through) {}
+void spell::resetModel()
+{
+    name = "";
+    classes = "";
+    level = 0;
+    school = "";
+    ritual = false;
+    castingTime = "";
+    range = "";
+    components = "";
+    material = "";
+    duration = "";
+    description = "";
+    source = "";
+    page = 0;
+}
