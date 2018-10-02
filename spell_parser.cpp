@@ -7,32 +7,21 @@ spell spell_iteration_var;
 
 int main()
 {
-    cout << "TEST CASE BEGIN\n";
-    string a = "GeeksForGeeks";
-    // Here b is an object of regex (regular expression)
-    regex b("(Geek)(.*)"); // Geeks followed by any character
-    // regex_match function matches string a against regex b
-    if (regex_match(a, b))
-        cout << "String 'a' matches regular expression 'b' \n";
-    // regex_match function for matching a range in string
-    // against regex b
-    if (regex_match(a.begin(), a.end(), b))
-        cout << "String 'a' matches with regular expression "
-                "'b' in the range from 0 to string end\n";
-    cout << "END TEST CASE\n";
-
     int step = 0;
-
+    bool success = false;
     while (getline(cin, data_to_search))
     {
-        // cout << step << endl;
-        //         cout << "data: " << data_to_search << endl;
-
-        cout << "sending: '" + data_to_search + "' \n";
+        cout << "step " << step << endl;
+        cout << "SEND: '" + data_to_search + "' \n";
         switch (step)
         {
         case 0:
-            spell_iteration_var.find_and_set_name(data_to_search);
+            success = spell_iteration_var.find_and_set_name(data_to_search);
+            if (success)
+            {
+                cout << "SPELLNAME: " << spell_iteration_var.name << endl;
+                exit(1);
+            }
             break;
         case 1:
             spell_iteration_var.find_and_set_classes(data_to_search);
@@ -73,16 +62,13 @@ int main()
         default:
             cout << "somehow hit default case in switch \n";
             exit(1);
-            // consider cases of default
             break;
         }
 
-        step++;
-        if (step > 0)
+        if (success)
         {
-            // cout << "exiting, step " << step << " isn't built yet.\n";
-            // break;
-            step = 0; //create infinite step 0 for now while testing it
+            step++;
+            success = false;
         }
     }
 

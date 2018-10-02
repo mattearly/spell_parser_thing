@@ -4,10 +4,11 @@ all: spell_parser.o spell_model.o
 *.o: *.cpp
 	g++ -c *.cpp -std=c++11
 
+.PHONY: test1
 test1:
 	+$(MAKE) all
 	./sparser.exe < test.txt
 
-run:
-	+$(MAKE) all
-	./sparser
+.PHONY: clean
+clean:
+	rm *.o sparser*
