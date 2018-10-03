@@ -98,9 +98,9 @@ bool spell::find_and_set_duration(const string &search_through)
     smatch matches;
     if (regex_search(search_through, matches, pattern))
     {
-        for (auto match : matches) {
-            cout << "match: " << match << endl;
-        }
+        // for (auto match : matches) {
+        //     cout << "match: " << match << endl;
+        // }
         // if (matches[0].compare("duration") == 0)
         if (matches[0].compare("duration") != 0) 
         {
@@ -111,7 +111,41 @@ bool spell::find_and_set_duration(const string &search_through)
     return false;
 }
 
-bool spell::find_and_set_level(const string &search_through) {}
+bool spell::find_and_set_level(const string &search_through) {
+    std::regex pattern{R"([0-9])"};
+    smatch matches;
+    if (regex_search(search_through, matches, pattern))
+    {
+
+        string test = matches[0];
+        
+        string numString = "";
+
+        if (test.size() > 0)
+        {
+            for (uint32_t i = 0; i < test.size(); i++)
+            {
+                if (isdigit(test[i]))
+                {
+                    numString += test[i];
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            spell_iteration_var.level = stoi(numString);
+            return true;
+
+        }
+    }
+
+    return false;
+}
+
+
+
 bool spell::find_and_set_school(const string &search_through) {}
 bool spell::find_and_set_ritual(const string &search_through) {}
 bool spell::find_and_set_castingTime(const string &search_through) {}

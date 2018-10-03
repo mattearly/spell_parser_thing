@@ -41,11 +41,15 @@ int main()
             if (success)
             {
                 cout << "DURATION: " << spell_iteration_var.duration << endl;
-                exit(-1);
             }
             break;
         case 4:
-            spell_iteration_var.find_and_set_level(data_to_search);
+            success = spell_iteration_var.find_and_set_level(data_to_search);
+            if (success)
+            {
+                cout << "LEVEL: " << spell_iteration_var.level << endl;
+                exit(-1);
+            }
             break;
         case 5:
             spell_iteration_var.find_and_set_material(data_to_search);
