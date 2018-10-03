@@ -1,14 +1,27 @@
-all: spell_parser.o spell_model.o
-	g++ spell_parser.o spell_model.o -o sparser
+TARGET = sparser
+CC = g++
+#~ OBJECTS = $(patsubst %.o,%,$(wildcard *.cpp))
+OBJECTS = spell_parser.o spell_model.o
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $(TARGET)
+
 
 *.o: *.cpp
-	g++ -c *.cpp -std=c++11
+	$(CC) -c *.cpp -std=c++11
+
 
 .PHONY: test1
 test1:
-	+$(MAKE) all
-	./sparser < test.txt
+	+$(MAKE) $(TARGET)
+	+$(MAKE) run
+
 
 .PHONY: clean
 clean:
-	rm *.o sparser*
+	rm $(OBJECTS) $(TARGET)*
+
+.PHONY: run
+run:
+	./$(TARGET) < test.txt
+
