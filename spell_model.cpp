@@ -98,11 +98,7 @@ bool spell::find_and_set_duration(const string &search_through)
     smatch matches;
     if (regex_search(search_through, matches, pattern))
     {
-        // for (auto match : matches) {
-        //     cout << "match: " << match << endl;
-        // }
-        // if (matches[0].compare("duration") == 0)
-        if (matches[0].compare("duration") != 0) 
+        if (matches[0].compare("duration") != 0)
         {
             spell_iteration_var.duration = matches[0];
             return true;
@@ -111,16 +107,14 @@ bool spell::find_and_set_duration(const string &search_through)
     return false;
 }
 
-bool spell::find_and_set_level(const string &search_through) {
+bool spell::find_and_set_level(const string &search_through)
+{
     std::regex pattern{R"([0-9])"};
     smatch matches;
     if (regex_search(search_through, matches, pattern))
     {
-
         string test = matches[0];
-        
         string numString = "";
-
         if (test.size() > 0)
         {
             for (uint32_t i = 0; i < test.size(); i++)
@@ -134,23 +128,40 @@ bool spell::find_and_set_level(const string &search_through) {
                     break;
                 }
             }
-
             spell_iteration_var.level = stoi(numString);
             return true;
-
         }
     }
-
     return false;
 }
 
+bool spell::find_and_set_material(const string &search_through)
+{
+    std::regex pattern{R"([a-zA-Z0-9, \s]+)"};
+    smatch matches;
 
+    if (regex_search(search_through, matches, pattern))
+    {
+
+        for (auto match : matches)
+        {
+            cout << "M: " << match << endl;
+        }
+
+        if (matches[0].compare("material") != 0)
+        {
+            spell_iteration_var.material = matches[0];
+            return true;
+        }
+
+    }
+    return false;
+}
 
 bool spell::find_and_set_school(const string &search_through) {}
 bool spell::find_and_set_ritual(const string &search_through) {}
 bool spell::find_and_set_castingTime(const string &search_through) {}
 bool spell::find_and_set_range(const string &search_through) {}
-bool spell::find_and_set_material(const string &search_through) {}
 bool spell::find_and_set_description(const string &search_through) {}
 bool spell::find_and_set_source(const string &search_through) {}
 bool spell::find_and_set_page(const string &search_through) {}
