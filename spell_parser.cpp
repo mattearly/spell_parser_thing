@@ -55,7 +55,7 @@ int main()
             if (success)
             {
                 cout << "MATERIAL: " << spell_iteration_var.material << endl;
-                exit(-1);
+                exit(0);
             }
             break;
         case 6:
@@ -81,7 +81,7 @@ int main()
             break;
         default:
             cout << "somehow hit default case in switch \n";
-            exit(1);
+            exit(0);
             break;
         }
 
@@ -92,6 +92,5 @@ int main()
         }
     }
 
-    // cout <<
     return 0;
 }

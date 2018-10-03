@@ -137,24 +137,54 @@ bool spell::find_and_set_level(const string &search_through)
 
 bool spell::find_and_set_material(const string &search_through)
 {
-    std::regex pattern{R"([a-zA-Z0-9, \s]+)"};
+    //~ std::regex pattern{R"([a-zA-Z0-9][a-z()\s,]+)"};
+    //~ std::regex pattern{R"([a-zA-Z0-9][^",]+)"};
+    std::regex pattern{R"((null))"};
     smatch matches;
-
+    cout << "checking for null materials...\n";
     if (regex_search(search_through, matches, pattern))
     {
-
+		cout << "number of matches: " << matches.size() << endl;
         for (auto match : matches)
         {
             cout << "M: " << match << endl;
         }
 
-        if (matches[0].compare("material") != 0)
+        if (matches[0].compare("null") == 0)
         {
-            spell_iteration_var.material = matches[0];
+            spell_iteration_var.material = "none";
             return true;
         }
-
     }
+
+	// if we didn't get the null version... should be something surrounded by quotes then
+	//~ std::regex pattern2{R"((?<=")[a-ln-zA-Z0-9][a-zA-Z0-9,() \s]+)"};
+	//~ std::regex pattern2{R"((["'])(?:(?=(\\?))\2.)*?\1)"};
+	//~ std::regex pattern2{R"((["'])(\\?.)*?\1 )"};
+	//~ std::regex pattern2{R"((.*?))"};
+	//~ std::regex pattern2{R"((\"[\w,()\s]+\"))"};
+	//~ std::regex pattern2{R"((\"[a-ln-zA-Z0-9][\w,()\s]*?\"))"};  //works omg
+	std::regex pattern2{R"((\"[a-ln-zA-Z0-9][\w,()\s]+\"))"};  //works omg
+    smatch matches2;
+    cout << "went passed null, checking for string between quotations...\n";
+    if (regex_search(search_through, matches2, pattern2))
+    {
+		cout << "number of matches: " << matches2.size() << endl;
+        for (auto match : matches2)
+        {
+            cout << "M: " << match << endl;
+        }
+
+        if (matches2[0].compare("material") != 0)
+        {
+			//string quotes removal
+			string tmp = matches2[0];
+			string strippedquotes = tmp.substr(1, matches2[0].length() -2);
+            spell_iteration_var.material = strippedquotes;
+            return true;
+        }
+    }
+
     return false;
 }
 
