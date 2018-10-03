@@ -7,7 +7,7 @@ all: spell_parser.o spell_model.o
 .PHONY: test1
 test1:
 	+$(MAKE) all
-	./sparser.exe < test.txt
+	./sparser < test.txt
 
 .PHONY: clean
 clean:

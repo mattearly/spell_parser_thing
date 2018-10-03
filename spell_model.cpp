@@ -158,13 +158,13 @@ bool spell::find_and_set_material(const string &search_through)
     return false;
 }
 
-bool spell::find_and_set_school(const string &search_through) {}
-bool spell::find_and_set_ritual(const string &search_through) {}
-bool spell::find_and_set_castingTime(const string &search_through) {}
-bool spell::find_and_set_range(const string &search_through) {}
-bool spell::find_and_set_description(const string &search_through) {}
-bool spell::find_and_set_source(const string &search_through) {}
-bool spell::find_and_set_page(const string &search_through) {}
+bool spell::find_and_set_school(const string &search_through) {return false;}
+bool spell::find_and_set_ritual(const string &search_through) {return false;}
+bool spell::find_and_set_castingTime(const string &search_through) {return false;}
+bool spell::find_and_set_range(const string &search_through) {return false;}
+bool spell::find_and_set_description(const string &search_through) {return false;}
+bool spell::find_and_set_source(const string &search_through) {return false;}
+bool spell::find_and_set_page(const string &search_through) {return false;}
 
 void spell::resetModel()
 {
