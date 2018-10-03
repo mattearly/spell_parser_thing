@@ -83,12 +83,31 @@ bool spell::find_and_set_components(const string &search_through)
             return false;
         }
     }
-    
+
     if (spell_iteration_var.components.size() > 2)
     {
         return true;
     }
 
+    return false;
+}
+
+bool spell::find_and_set_duration(const string &search_through)
+{
+    std::regex pattern{R"([A-Z0-9][a-zA-Z0-9, \s]+)"};
+    smatch matches;
+    if (regex_search(search_through, matches, pattern))
+    {
+        for (auto match : matches) {
+            cout << "match: " << match << endl;
+        }
+        // if (matches[0].compare("duration") == 0)
+        if (matches[0].compare("duration") != 0) 
+        {
+            spell_iteration_var.duration = matches[0];
+            return true;
+        }
+    }
     return false;
 }
 
@@ -98,7 +117,6 @@ bool spell::find_and_set_ritual(const string &search_through) {}
 bool spell::find_and_set_castingTime(const string &search_through) {}
 bool spell::find_and_set_range(const string &search_through) {}
 bool spell::find_and_set_material(const string &search_through) {}
-bool spell::find_and_set_duration(const string &search_through) {}
 bool spell::find_and_set_description(const string &search_through) {}
 bool spell::find_and_set_source(const string &search_through) {}
 bool spell::find_and_set_page(const string &search_through) {}

@@ -34,11 +34,15 @@ int main()
             if (success)
             {
                 cout << "COMPONENTS: " << spell_iteration_var.components << endl;
-                exit(-1);
             }
             break;
         case 3:
-            spell_iteration_var.find_and_set_duration(data_to_search);
+            success = spell_iteration_var.find_and_set_duration(data_to_search);
+            if (success)
+            {
+                cout << "DURATION: " << spell_iteration_var.duration << endl;
+                exit(-1);
+            }
             break;
         case 4:
             spell_iteration_var.find_and_set_level(data_to_search);
