@@ -30,17 +30,15 @@ bool spell::find_and_set_classes(const string &search_through)
         { // we dont want Rogue and Fighter classes listed as casters
             return false;
         }
-        if (count > 0)
+        if (spell_iteration_var.classes.length() >= 3)
         {
             spell_iteration_var.classes += ", ";
             spell_iteration_var.classes += matches[0];
-            count++;
             return false;
         }
         else
         {
             spell_iteration_var.classes = matches[0];
-            count++;
             return false;
         }
     }
@@ -54,12 +52,11 @@ bool spell::find_and_set_classes(const string &search_through)
 
 bool spell::find_and_set_components(const string &search_through)
 {
-    static int count = 0;
     std::regex pattern{R"([A-Z])"};
     smatch matches;
     if (regex_search(search_through, matches, pattern))
     {
-        if (count > 0)
+        if (spell_iteration_var.components.length() >= 3)
         {
             spell_iteration_var.components += ", ";
             if (matches[0].compare("S") == 0)
@@ -68,7 +65,6 @@ bool spell::find_and_set_components(const string &search_through)
                 spell_iteration_var.components += "Material";
             if (matches[0].compare("V") == 0)
                 spell_iteration_var.components += "Verbal";
-            count++;
             return false;
         }
         else
@@ -79,7 +75,6 @@ bool spell::find_and_set_components(const string &search_through)
                 spell_iteration_var.components += "Material";
             if (matches[0].compare("V") == 0)
                 spell_iteration_var.components += "Verbal";
-            count++;
             return false;
         }
     }
