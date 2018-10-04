@@ -141,9 +141,16 @@ int main()
   */
 
     ofstream os("outtext.txt");
+    string ritual_bool = "";
 
     for (auto spell : spells_grabbed) {
         if (os.is_open()) {
+            
+            if (spell.ritual) 
+            ritual_bool = "true";
+            else 
+            ritual_bool = "false";
+
             os <<
             ",\n"
             "      {\n"
@@ -151,7 +158,7 @@ int main()
             "        \"classes\": \"" << spell.classes << "\",\n"
             "        \"level\": " << spell.level << ",\n"
             "        \"school\": \"" << spell.school << "\",\n"
-            "        \"ritual\": " << spell.ritual << ",\n"
+            "        \"ritual\": " << ritual_bool << ",\n"
             "        \"castingTime\": \"" << spell.castingTime << "\",\n"
             "        \"range\": \"" << spell.range << "\",\n"
             "        \"components\": \"" << spell.components << "\",\n"
@@ -159,9 +166,10 @@ int main()
             "        \"duration\": \"" << spell.duration << "\",\n"
             "        \"description\": \"" << spell.description << "\",\n"
             "        \"source\": \"" << spell.source << "\",\n"
-            "        \"page\": " << spell.page << ",\n"
+            "        \"page\": " << spell.page << "\n"
             "      }";
         }
+   
     }
 
     os.flush();
