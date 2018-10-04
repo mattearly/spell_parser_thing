@@ -106,9 +106,11 @@ int main()
             }
             break;
         default:
-            cout << "somehow hit default case in switch \n";
-            exit(0);
-            break;
+            step = 0;
+            spells_grabbed.push_back(spell_iteration_var);
+            spell_iteration_var.resetModel();
+            cout << "```````````SPELL COMPLETE````````````\n";
+            continue;
         }
 
         if (success)
@@ -117,6 +119,8 @@ int main()
             success = false;
         }
     }
+
+    cout << "SPELLS GATHERED: " << spells_grabbed.size() << "!!" << endl;
 
     return 0;
 }
