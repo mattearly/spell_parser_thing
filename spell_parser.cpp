@@ -76,17 +76,26 @@ int main()
             if (success)
             {
                 cout << "SCHOOL: " << spell_iteration_var.school << endl;
-                exit(0);
             }
             break;
         case 9:
-            spell_iteration_var.find_and_set_source(data_to_search);
+            success = spell_iteration_var.find_and_set_source(data_to_search);
+            if (success)
+            {
+                cout << "SOURCE: " << spell_iteration_var.source << endl;
+            }
             break;
         case 10:
-            spell_iteration_var.find_and_set_page(data_to_search);
+            success = spell_iteration_var.find_and_set_page(data_to_search);
+            if (success)
+            {
+                cout << "PAGE: " << spell_iteration_var.page << endl;
+                exit(0);
+            }
             break;
         case 11:
             spell_iteration_var.find_and_set_description(data_to_search);
+
             break;
         case 12:
             spell_iteration_var.find_and_set_castingTime(data_to_search);

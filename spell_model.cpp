@@ -241,18 +241,39 @@ bool spell::find_and_set_school(const string &search_through)
     smatch matches;
     if (regex_search(search_through, matches, pattern))
     {
-            spell_iteration_var.school = matches[0];
-            return true;
+        spell_iteration_var.school = matches[0];
+        return true;
     }
     return false;
 }
-bool spell::find_and_set_source(const string &search_through) { return false; }
-bool spell::find_and_set_page(const string &search_through) { return false; }
+
+bool spell::find_and_set_source(const string &search_through)
+{
+    std::regex pattern{R"([A-Z][a-zA-Z' \s]+)"};
+    smatch matches;
+    if (regex_search(search_through, matches, pattern))
+    {
+        spell_iteration_var.source = matches[0];
+        return true;
+    }
+    return false;
+}
+
+bool spell::find_and_set_page(const string &search_through)
+{
+    std::regex pattern{R"([0-9]+)"};
+    smatch matches;
+    if (regex_search(search_through, matches, pattern))
+    {
+        spell_iteration_var.page = stoi(matches[0]);
+        return true;
+    }
+    return false;
+}
 
 bool spell::find_and_set_description(const string &search_through) { return false; }
 
 bool spell::find_and_set_castingTime(const string &search_through) { return false; }
-
 
 void spell::resetModel()
 {
