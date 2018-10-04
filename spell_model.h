@@ -24,10 +24,10 @@ public:
   bool find_and_set_name(const string &);
   bool find_and_set_classes(const string &);
   bool find_and_set_components(const string &);
-
   bool find_and_set_level(const string &);
   bool find_and_set_school(const string &);
   bool find_and_set_ritual(const string &);
+
   bool find_and_set_castingTime(const string &);
   bool find_and_set_range(const string &);
   bool find_and_set_material(const string &);

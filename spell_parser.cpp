@@ -62,11 +62,15 @@ int main()
 			if (success)
             {
                 cout << "RANGE: " << spell_iteration_var.range << endl;
-                exit(0);
             }
             break;
         case 7:
-            spell_iteration_var.find_and_set_ritual(data_to_search);
+            success = spell_iteration_var.find_and_set_ritual(data_to_search);
+            if (success)
+            {
+                cout << "RITUAL: " << spell_iteration_var.ritual << endl;
+                exit(0);
+            }
             break;
         case 8:
             spell_iteration_var.find_and_set_school(data_to_search);
