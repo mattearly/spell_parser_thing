@@ -9,7 +9,7 @@ extern spell spell_iteration_var;
 
 bool spell::find_and_set_name(const string &search_through)
 {
-    std::regex pattern{R"([A-Z][a-zA-Z \s]+)"};
+    std::regex pattern{R"([A-Z][a-zA-Z \s']+)"};
     smatch matches;
     if (regex_search(search_through, matches, pattern))
     {
