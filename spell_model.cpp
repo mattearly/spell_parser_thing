@@ -199,7 +199,7 @@ bool spell::find_and_set_range(const string &search_through) {
 			//string quotes removal
 			string tmp = matches[0];
 			string strippedquotes = tmp.substr(1, matches[0].length() - 2);
-            spell_iteration_var.material = strippedquotes;
+            spell_iteration_var.range = strippedquotes;
             return true;
         }
     }
