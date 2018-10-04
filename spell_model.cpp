@@ -197,28 +197,27 @@ bool spell::find_and_set_range(const string &search_through)
 
 bool spell::find_and_set_ritual(const string &search_through)
 {
-    std::regex pattern2{R"((\"[a-ln-zA-Z0-9][\w,()\s]+\"))"}; //works omg
-    smatch matches2;
+    // std::regex pattern2{R"((\"[a-ln-zA-Z0-9][\w,()\s]+\"))"}; //works omg - NO IT DOESN'T, ALWAYS FALSE
+    std::regex pattern{R"((true)|(false))"};
+    smatch matches;
     cout << "went passed null, checking for string between quotations...\n";
-    if (regex_search(search_through, matches2, pattern2))
+    if (regex_search(search_through, matches, pattern))
     {
-        cout << "number of matches: " << matches2.size() << endl;
-        for (auto match : matches2)
+        cout << "number of matches: " << matches.size() << endl;
+        for (auto match : matches)
         {
             cout << "M: " << match << endl;
         }
-        if (matches2[0].compare("ritual") != 0)
-        {
-            //string quotes removal
-            string tmp = matches2[0];
-            string strippedquotes = tmp.substr(1, matches2[0].length() - 2);
-            if (strippedquotes.compare("true") == 0)
-                spell_iteration_var.ritual = true;
-            else
-                spell_iteration_var.ritual = false;
-
+        if (matches[0].compare("true") == 0) {
+            spell_iteration_var.ritual = true;
             return true;
+        } else if (matches[0].compare("false") == 0) {
+            spell_iteration_var.ritual = false;
+            return true;
+        } else {
+            return false;
         }
+
     }
     return false;
 }
@@ -276,20 +275,20 @@ bool spell::find_and_set_description(const string &search_through)
 
 bool spell::find_and_set_castingTime(const string &search_through)
 {
-    std::regex pattern2{R"((\"[a-su-zA-Z0-9][\w,()\s]+\"))"};
-    smatch matches2;
-    if (regex_search(search_through, matches2, pattern2))
+    std::regex pattern{R"((\"[a-su-zA-Z0-9][\w,()\s]+\"))"};
+    smatch matches;
+    if (regex_search(search_through, matches, pattern))
     {
-        cout << "number of matches: " << matches2.size() << endl;
-        for (auto match : matches2)
+        cout << "number of matches: " << matches.size() << endl;
+        for (auto match : matches)
         {
             cout << "M: " << match << endl;
         }
-        if (matches2[0].compare("material") != 0)
+        if (matches[0].compare("material") != 0)
         {
             //string quotes removal
-            string tmp = matches2[0];
-            string strippedquotes = tmp.substr(1, matches2[0].length() - 2);
+            string tmp = matches[0];
+            string strippedquotes = tmp.substr(1, matches[0].length() - 2);
             spell_iteration_var.castingTime = strippedquotes;
             return true;
         }
