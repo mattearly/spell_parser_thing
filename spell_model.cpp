@@ -237,30 +237,22 @@ bool spell::find_and_set_ritual(const string &search_through)
 
 bool spell::find_and_set_school(const string &search_through)
 {
-    // std::regex pattern{R"([A-Z][a-zA-Z]+)"};
-    // smatch matches;
-    // if (regex_search(search_through, matches, pattern))
-    // {
-    //     cout << "number of matches: " << matches.size() << endl;
-    //     for (auto match : matches)
-    //     {
-    //         cout << "M: " << match << endl;
-    //     }
-    //     if (matches[0].compare("range") != 0)
-    //     {
-    //         //string quotes removal
-    //         string tmp = matches[0];
-    //         string strippedquotes = tmp.substr(1, matches[0].length() - 2);
-    //         spell_iteration_var.range = strippedquotes;
-    //         return true;
-    //     }
-    // }
+    std::regex pattern{R"([A-Z][a-zA-Z]+)"};
+    smatch matches;
+    if (regex_search(search_through, matches, pattern))
+    {
+            spell_iteration_var.school = matches[0];
+            return true;
+    }
     return false;
 }
-bool spell::find_and_set_castingTime(const string &search_through) { return false; }
-bool spell::find_and_set_description(const string &search_through) { return false; }
 bool spell::find_and_set_source(const string &search_through) { return false; }
 bool spell::find_and_set_page(const string &search_through) { return false; }
+
+bool spell::find_and_set_description(const string &search_through) { return false; }
+
+bool spell::find_and_set_castingTime(const string &search_through) { return false; }
+
 
 void spell::resetModel()
 {

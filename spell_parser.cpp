@@ -59,7 +59,7 @@ int main()
             break;
         case 6:
             success = spell_iteration_var.find_and_set_range(data_to_search);
-			if (success)
+            if (success)
             {
                 cout << "RANGE: " << spell_iteration_var.range << endl;
             }
@@ -69,11 +69,15 @@ int main()
             if (success)
             {
                 cout << "RITUAL: " << spell_iteration_var.ritual << endl;
-                exit(0);
             }
             break;
         case 8:
-            spell_iteration_var.find_and_set_school(data_to_search);
+            success = spell_iteration_var.find_and_set_school(data_to_search);
+            if (success)
+            {
+                cout << "SCHOOL: " << spell_iteration_var.school << endl;
+                exit(0);
+            }
             break;
         case 9:
             spell_iteration_var.find_and_set_source(data_to_search);
