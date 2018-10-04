@@ -149,14 +149,12 @@ bool spell::find_and_set_material(const string &search_through)
         {
             cout << "M: " << match << endl;
         }
-
         if (matches[0].compare("null") == 0)
         {
             spell_iteration_var.material = "none";
             return true;
         }
     }
-
 	// if we didn't get the null version... should be something surrounded by quotes then
 	//~ std::regex pattern2{R"((?<=")[a-ln-zA-Z0-9][a-zA-Z0-9,() \s]+)"};
 	//~ std::regex pattern2{R"((["'])(?:(?=(\\?))\2.)*?\1)"};
@@ -174,24 +172,43 @@ bool spell::find_and_set_material(const string &search_through)
         {
             cout << "M: " << match << endl;
         }
-
         if (matches2[0].compare("material") != 0)
         {
 			//string quotes removal
 			string tmp = matches2[0];
-			string strippedquotes = tmp.substr(1, matches2[0].length() -2);
+			string strippedquotes = tmp.substr(1, matches2[0].length() - 2);
             spell_iteration_var.material = strippedquotes;
             return true;
         }
     }
-
     return false;
+}
+
+bool spell::find_and_set_range(const string &search_through) {
+	std::regex pattern{R"((\"[a-qs-zA-Z0-9][\w,()\s]+\"))"};
+    smatch matches;
+    if (regex_search(search_through, matches, pattern))
+    {
+		cout << "number of matches: " << matches.size() << endl;
+        for (auto match : matches)
+        {
+            cout << "M: " << match << endl;
+        }
+        if (matches[0].compare("range") != 0)
+        {
+			//string quotes removal
+			string tmp = matches[0];
+			string strippedquotes = tmp.substr(1, matches[0].length() - 2);
+            spell_iteration_var.material = strippedquotes;
+            return true;
+        }
+    }
+	return false;
 }
 
 bool spell::find_and_set_school(const string &search_through) {return false;}
 bool spell::find_and_set_ritual(const string &search_through) {return false;}
 bool spell::find_and_set_castingTime(const string &search_through) {return false;}
-bool spell::find_and_set_range(const string &search_through) {return false;}
 bool spell::find_and_set_description(const string &search_through) {return false;}
 bool spell::find_and_set_source(const string &search_through) {return false;}
 bool spell::find_and_set_page(const string &search_through) {return false;}

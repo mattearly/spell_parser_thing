@@ -55,11 +55,15 @@ int main()
             if (success)
             {
                 cout << "MATERIAL: " << spell_iteration_var.material << endl;
-                exit(0);
             }
             break;
         case 6:
-            spell_iteration_var.find_and_set_range(data_to_search);
+            success = spell_iteration_var.find_and_set_range(data_to_search);
+			if (success)
+            {
+                cout << "RANGE: " << spell_iteration_var.range << endl;
+                exit(0);
+            }
             break;
         case 7:
             spell_iteration_var.find_and_set_ritual(data_to_search);
