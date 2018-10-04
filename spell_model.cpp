@@ -174,7 +174,7 @@ bool spell::find_and_set_material(const string &search_through)
 
 bool spell::find_and_set_range(const string &search_through)
 {
-    std::regex pattern{R"((\"[a-qs-zA-Z0-9][\w,()\s]+\"))"};
+    std::regex pattern{R"((\"[a-qs-zA-Z0-9][\w\-,()\s]+\"))"};
     smatch matches;
     if (regex_search(search_through, matches, pattern))
     {
@@ -261,7 +261,7 @@ bool spell::find_and_set_page(const string &search_through)
 
 bool spell::find_and_set_description(const string &search_through)
 {
-    std::regex pattern{R"([A-Z][a-zA-Z',()0-9 . \s]+)"};
+    std::regex pattern{R"([A-Z][a-zA-Z',()0-9 .\-: \s]+)"};
     smatch matches;
     if (regex_search(search_through, matches, pattern))
     {
