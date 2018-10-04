@@ -90,15 +90,20 @@ int main()
             if (success)
             {
                 cout << "PAGE: " << spell_iteration_var.page << endl;
-                exit(0);
             }
             break;
         case 11:
-            spell_iteration_var.find_and_set_description(data_to_search);
-
+            success = spell_iteration_var.find_and_set_description(data_to_search);
+            if (success)
+            {
+                cout << "DESCRIPTION: " << spell_iteration_var.description << endl;
+            }
             break;
         case 12:
-            spell_iteration_var.find_and_set_castingTime(data_to_search);
+            success = spell_iteration_var.find_and_set_castingTime(data_to_search);
+            if (success) {
+                cout << "CASTING TIME: " << spell_iteration_var.castingTime << endl;
+            }
             break;
         default:
             cout << "somehow hit default case in switch \n";

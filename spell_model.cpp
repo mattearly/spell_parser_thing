@@ -137,8 +137,7 @@ bool spell::find_and_set_level(const string &search_through)
 
 bool spell::find_and_set_material(const string &search_through)
 {
-    //~ std::regex pattern{R"([a-zA-Z0-9][a-z()\s,]+)"};
-    //~ std::regex pattern{R"([a-zA-Z0-9][^",]+)"};
+
     std::regex pattern{R"((null))"};
     smatch matches;
     cout << "checking for null materials...\n";
@@ -155,13 +154,7 @@ bool spell::find_and_set_material(const string &search_through)
             return true;
         }
     }
-    // if we didn't get the null version... should be something surrounded by quotes then
-    //~ std::regex pattern2{R"((?<=")[a-ln-zA-Z0-9][a-zA-Z0-9,() \s]+)"};
-    //~ std::regex pattern2{R"((["'])(?:(?=(\\?))\2.)*?\1)"};
-    //~ std::regex pattern2{R"((["'])(\\?.)*?\1 )"};
-    //~ std::regex pattern2{R"((.*?))"};
-    //~ std::regex pattern2{R"((\"[\w,()\s]+\"))"};
-    //~ std::regex pattern2{R"((\"[a-ln-zA-Z0-9][\w,()\s]*?\"))"};  //works omg
+
     std::regex pattern2{R"((\"[a-ln-zA-Z0-9][\w,()\s]+\"))"}; //works omg
     smatch matches2;
     cout << "went passed null, checking for string between quotations...\n";
@@ -271,9 +264,43 @@ bool spell::find_and_set_page(const string &search_through)
     return false;
 }
 
-bool spell::find_and_set_description(const string &search_through) { return false; }
+bool spell::find_and_set_description(const string &search_through)
+{
+    std::regex pattern{R"([A-Z][a-zA-Z',()0-9 . \s]+)"};
+    smatch matches;
+    if (regex_search(search_through, matches, pattern))
+    {
+        if (matches[0].length() > 10)
+        {
+            spell_iteration_var.description = matches[0];
+            return true;
+        }
+    }
+    return false;
+}
 
-bool spell::find_and_set_castingTime(const string &search_through) { return false; }
+bool spell::find_and_set_castingTime(const string &search_through)
+{
+    std::regex pattern2{R"((\"[a-su-zA-Z0-9][\w,()\s]+\"))"};
+    smatch matches2;
+    if (regex_search(search_through, matches2, pattern2))
+    {
+        cout << "number of matches: " << matches2.size() << endl;
+        for (auto match : matches2)
+        {
+            cout << "M: " << match << endl;
+        }
+        if (matches2[0].compare("material") != 0)
+        {
+            //string quotes removal
+            string tmp = matches2[0];
+            string strippedquotes = tmp.substr(1, matches2[0].length() - 2);
+            spell_iteration_var.castingTime = strippedquotes;
+            return true;
+        }
+    }
+    return false;
+}
 
 void spell::resetModel()
 {
