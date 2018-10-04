@@ -138,13 +138,13 @@ int main()
       "source": "Player's Handbook",
       "page": 277
     }
-    */
+  */
 
     ofstream os("outtext.txt");
 
     for (auto spell : spells_grabbed) {
         if (os.is_open()) {
-            os << 
+            os <<
             ",\n"
             "      {\n"
             "        \"name\": \"" << spell.name << "\",\n"
@@ -163,7 +163,7 @@ int main()
             "      }";
         }
     }
-    
+
     os.flush();
     os.close();
 
