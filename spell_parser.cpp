@@ -121,6 +121,51 @@ int main()
     }
 
     cout << "SPELLS GATHERED: " << spells_grabbed.size() << "!!" << endl;
+/*
+,
+    {
+      "name": "Spider Climb",
+      "classes": "Sorcerer, Warlock, Wizard",
+      "level": 2,
+      "school": "Transmutation",
+      "ritual": false,
+      "castingTime": "action",
+      "range": "Touch",
+      "components": "Somatic, Verbal, Material",
+      "material": "a drop of bituem and a spider",
+      "duration": "Concentration, up to 1 hour",
+      "description": "Until the spell ends, one willing creature you touch gains the ability to move up, down, and across vertical surfaces and upside down along ceilings, while leaving its hands free. The target also gains a climbing speed equal to its walking speed.",
+      "source": "Player's Handbook",
+      "page": 277
+    }
+    */
+
+    ofstream os("outtext.txt");
+
+    for (auto spell : spells_grabbed) {
+        if (os.is_open()) {
+            os << 
+            ",\n"
+            "      {\n"
+            "      \"name\": \"" << spell.name << "\",\n"
+            "      \"classes\": \"" << spell.classes << "\",\n"
+            "      \"level\": " << spell.level << ",\n"
+            "      \"school\": \"" << spell.school << "\",\n"
+            "      \"ritual\": " << spell.ritual << ",\n"
+            "      \"castingTime\": \"" << spell.castingTime << "\",\n"
+            "      \"range\": \"" << spell.range << "\",\n"
+            "      \"components\": \"" << spell.components << "\",\n"
+            "      \"material\": \"" << spell.material << "\",\n"
+            "      \"duration\": \"" << spell.duration << "\",\n"
+            "      \"description\": \"" << spell.description << "\",\n"
+            "      \"source\": \"" << spell.source << "\",\n"
+            "      \"page\": " << spell.page << ",\n"
+            "      }";
+        }
+    }
+    
+    os.flush();
+    os.close();
 
     return 0;
 }

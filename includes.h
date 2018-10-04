@@ -6,3 +6,4 @@
 #include <string>
 #include <vector>
 #include "spell_model.h"
+#include <fstream>

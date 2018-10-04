@@ -10,7 +10,6 @@ public:
   string classes;
   string components;
   string duration;
-
   int level;
   string school;
   bool ritual;
