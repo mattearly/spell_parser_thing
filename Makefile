@@ -12,12 +12,20 @@ $(TARGET): $(OBJECTS)
 .PHONY: test1
 test1:
 	+$(MAKE) $(TARGET)
-	+$(MAKE) run
+	./$(TARGET) < test.txt
+
+.PHONY: test2
+test2:
+	+$(MAKE) $(TARGET)
+	./$(TARGET) < test2.txt
 
 .PHONY: clean
 clean:
 	rm $(OBJECTS) $(TARGET)*
 
+<<<<<<< HEAD
 .PHONY: run
 run:
 	./$(TARGET) < test.txt
+=======
+>>>>>>> 7f21fb418f3188d751b0bfb0b842fdf35a3d9c67
