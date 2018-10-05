@@ -156,14 +156,13 @@ bool spell::find_and_set_material(const string &search_through)
         {
             cout << "M: " << match << endl;
         }
-        if (matches2[0].compare("material") != 0)
-        {
-            //string quotes removal
-            string tmp = matches2[0];
-            string strippedquotes = tmp.substr(1, matches2[0].length() - 2);
-            spell_iteration_var.material = strippedquotes;
-            return true;
-        }
+
+        //string quotes removal
+        string tmp = matches2[0];
+        string strippedquotes = tmp.substr(1, matches2[0].length() - 2);
+        spell_iteration_var.material = strippedquotes;
+        return true;
+        
     }
     return false;
 }
