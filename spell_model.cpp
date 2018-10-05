@@ -93,11 +93,8 @@ bool spell::find_and_set_duration(const string &search_through)
     smatch matches;
     if (regex_search(search_through, matches, pattern))
     {
-        if (matches[0].compare("duration") != 0)
-        {
-            spell_iteration_var.duration = matches[0];
-            return true;
-        }
+        spell_iteration_var.duration = matches[0];
+        return true;
     }
     return false;
 }
@@ -132,7 +129,6 @@ bool spell::find_and_set_level(const string &search_through)
 
 bool spell::find_and_set_material(const string &search_through)
 {
-
     std::regex pattern{R"((null))"};
     smatch matches;
     cout << "checking for null materials...\n";

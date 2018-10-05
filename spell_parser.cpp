@@ -12,7 +12,7 @@ int main()
     while (getline(cin, data_to_search))
     {
         cout << "step " << step << endl;
-        cout << "SEND: '" + data_to_search + "' \n";
+        cout << "looking through: '" + data_to_search + "' \n";
         switch (step)
         {
         case 0:
@@ -118,7 +118,7 @@ int main()
             step++;
             success = false;
         }
-    }
+    }  //end of while loop
 
     cout << "SPELLS GATHERED: " << spells_grabbed.size() << "!!" << endl;
 /*
@@ -145,11 +145,11 @@ int main()
 
     for (auto spell : spells_grabbed) {
         if (os.is_open()) {
-            
-            if (spell.ritual) 
-            ritual_bool = "true";
-            else 
-            ritual_bool = "false";
+
+            if (spell.ritual)
+                ritual_bool = "true";
+            else
+                ritual_bool = "false";
 
             os <<
             ",\n"
